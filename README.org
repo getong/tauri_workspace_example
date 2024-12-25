@@ -10,11 +10,60 @@ cargo install trunk
 
 ** run the example
 
+*** create tauri leptos example
+
+#+begin_src shell
+$ bun create tauri-app
+✔ Project name · tauri_leptos_example
+✔ Identifier · com.tauri_leptos_example.app
+✔ Choose which language to use for your frontend · Rust - (cargo)
+✔ Choose your UI template · Leptos - (https://leptos.dev/)
+
+Template created! To get started run:
+  cd tauri_leptos_example
+  cargo tauri android init
+  cargo tauri ios init
+
+For Desktop development, run:
+  cargo tauri dev
+
+For Android development, run:
+  cargo tauri android dev
+
+For iOS development, run:
+  cargo tauri ios dev
+#+end_src
+
 *** run tauri_leptos_example
 
 #+begin_src shell
 cd tauri_leptos_example
 cargo tauri dev
+#+end_src
+
+*** create tauri yew example
+
+#+begin_src shell
+$ bun create tauri-app
+✔ Project name · tauri_yew_example
+✔ Identifier · com.tauri_yew_example.app
+✔ Choose which language to use for your frontend · Rust - (cargo)
+✔ Choose your UI template · Yew - (https://yew.rs/)
+
+Template created! To get started run:
+  cd tauri_yew_example
+  cargo tauri android init
+  cargo tauri ios init
+
+For Desktop development, run:
+  cargo tauri dev
+
+For Android development, run:
+  cargo tauri android dev
+
+For iOS development, run:
+  cargo tauri ios dev
+
 #+end_src
 
 *** tauri_yew_example
