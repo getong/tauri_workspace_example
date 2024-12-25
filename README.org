@@ -1,0 +1,25 @@
+* tauri_workspace_example
+tauri rust frontend and backend workspace example
+
+** install tauri and trunk
+
+#+begin_src shell
+cargo install tauri-cli
+cargo install trunk
+#+end_src
+
+** run the example
+
+*** run tauri_leptos_example
+
+#+begin_src shell
+cd tauri_leptos_example
+cargo tauri dev
+#+end_src
+
+*** tauri_yew_example
+
+#+begin_src shell
+cd tauri_yew_example
+cargo tauri dev
+#+end_src
