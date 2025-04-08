@@ -38,3 +38,7 @@ For Android development, run:
 For iOS development, run:
   bun run tauri ios dev
 #+end_src
+
+** add tailwind 4
+
+see [[https://tailwindcss.com/docs/installation/using-vite][Get started with Tailwind CSS]]
