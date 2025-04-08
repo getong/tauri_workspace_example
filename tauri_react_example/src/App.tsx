@@ -3,6 +3,29 @@ import reactLogo from "./assets/react.svg";
 import { invoke } from "@tauri-apps/api/core";
 import "./App.css";
 
+const Home = React.lazy(() => import("./components/pages/Home"));
+const Config = React.lazy(() => import("./components/pages/Config"));
+const Server = React.lazy(() => import("./components/pages/Server"));
+const Data = React.lazy(() => import("./components/pages/Data"));
+
+const rootRoute = createRootRoute({
+  component: () => (
+    <Layout>
+      <AppProvider>
+        <Suspense fallback={<div>Loading...</div>}>
+          <Outlet />
+        </Suspense>
+      </AppProvider>
+    </Layout>
+  ),
+});
+
+const homeRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/",
+  component: Home,
+});
+
 function App() {
   const [greetMsg, setGreetMsg] = useState("");
   const [name, setName] = useState("");

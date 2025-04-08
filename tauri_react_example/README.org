@@ -42,3 +42,11 @@ For iOS development, run:
 ** add tailwind 4
 
 see [[https://tailwindcss.com/docs/installation/using-vite][Get started with Tailwind CSS]]
+
+** tanstack router
+
+#+begin_src shell
+bun add @tanstack/react-router
+#+end_src
+
+see [[https://zenn.dev/rudolf_aion/articles/e9ad2c68ad9e7e][ReactRouterからTanstackに変えたら...サイズが増えた]]
