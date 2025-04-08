@@ -1,0 +1,40 @@
+* Tauri + React + Typescript
+:PROPERTIES:
+:CUSTOM_ID: tauri-react-typescript
+:END:
+This template should help get you started developing with Tauri, React
+and Typescript in Vite.
+
+** Recommended IDE Setup
+:PROPERTIES:
+:CUSTOM_ID: recommended-ide-setup
+:END:
+- [[https://code.visualstudio.com/][VS Code]] +
+  [[https://marketplace.visualstudio.com/items?itemName=tauri-apps.tauri-vscode][Tauri]]
+  +
+  [[https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer][rust-analyzer]]
+
+#+begin_src shell
+bun create tauri-app
+✔ Project name · tauri_react_example
+✔ Identifier · com.tauri_react_example.app
+✔ Choose which language to use for your frontend · TypeScript / JavaScript - (pnpm, yarn, npm, deno, bun)
+✔ Choose your package manager · bun
+✔ Choose your UI template · React - (https://react.dev/)
+✔ Choose your UI flavor · TypeScript
+
+Template created! To get started run:
+  cd tauri_react_example
+  bun install
+  bun run tauri android init
+  bun run tauri ios init
+
+For Desktop development, run:
+  bun run tauri dev
+
+For Android development, run:
+  bun run tauri android dev
+
+For iOS development, run:
+  bun run tauri ios dev
+#+end_src
