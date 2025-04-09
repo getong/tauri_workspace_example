@@ -37,9 +37,7 @@ function App() {
 
   return (
     <main className="container">
-      <h1 class="text-3xl font-bold underline">
-        Hello world!
-      </h1>
+      <h1 class="text-3xl font-bold underline">Hello world!</h1>
       <h1>Welcome to Tauri + React</h1>
 
       <div className="row">
