@@ -77,3 +77,87 @@ bun tauri add http
 #+begin_src shell
 bun run tauri dev
 #+end_src
+
+** Three.js with Physics using Cannon-es
+:PROPERTIES:
+:CUSTOM_ID: threejs-physics
+:END:
+
+This project includes 3D physics simulation capabilities using Three.js for rendering and Cannon-es for physics.
+
+*** Installation
+#+begin_src shell
+# Install Three.js
+bun add three
+bun add -D @types/three
+
+# Install Cannon-es physics engine
+bun add cannon-es
+bun add -D @types/cannon
+
+# Optional debugging tools
+bun add -D cannon-es-debugger lil-gui
+#+end_src
+
+*** Implementation Guide
+
+Based on [[https://zenn.dev/thirdlf/articles/06-zenn-threejs-cannon][Physics Simulation with Three.js and Cannon]], we created a physics scene component that:
+
+1. Sets up a Three.js scene with renderer, camera, and lighting
+2. Creates a Cannon.js physics world with gravity
+3. Creates visual meshes (Three.js) and corresponding physics bodies (Cannon-es)
+4. Synchronizes the positions and rotations of visual objects with physics bodies
+5. Implements an animation loop to update physics and render frames
+
+*** Code Example
+
+A basic physics scene where objects fall and collide:
+
+#+begin_src typescript
+// Create a scene, camera, renderer
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+const renderer = new THREE.WebGLRenderer();
+
+// Create a physics world
+const world = new CANNON.World({
+  gravity: new CANNON.Vec3(0, -9.82, 0)
+});
+
+// Create a box mesh (visual)
+const boxGeometry = new THREE.BoxGeometry(1, 1, 1);
+const boxMaterial = new THREE.MeshStandardMaterial({color: 0x44aaff});
+const boxMesh = new THREE.Mesh(boxGeometry, boxMaterial);
+scene.add(boxMesh);
+
+// Create a box physics body
+const boxBody = new CANNON.Body({
+  mass: 1,
+  shape: new CANNON.Box(new CANNON.Vec3(0.5, 0.5, 0.5)),
+  position: new CANNON.Vec3(0, 5, 0)
+});
+world.addBody(boxBody);
+
+// Animation loop
+function animate() {
+  requestAnimationFrame(animate);
+  
+  // Step the physics world
+  world.step(1/60);
+  
+  // Update mesh position to match physics body
+  boxMesh.position.copy(boxBody.position);
+  boxMesh.quaternion.copy(boxBody.quaternion);
+  
+  renderer.render(scene, camera);
+}
+animate();
+#+end_src
+
+*** Notes and Best Practices
+
+- Always dispose of Three.js geometries and materials when unmounting components
+- Use requestAnimationFrame for smooth animations
+- Handle window resize events to maintain proper aspect ratio
+- For better performance, reuse geometries and materials when creating multiple objects
+- Add proper lighting for materials that require it (e.g., MeshStandardMaterial)
