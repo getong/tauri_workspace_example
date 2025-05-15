@@ -14,6 +14,7 @@ import { Route as rootRoute } from "./routes/__root";
 import { Route as ServerImport } from "./routes/server";
 import { Route as DataImport } from "./routes/data";
 import { Route as ConfigImport } from "./routes/config";
+import { Route as ChartsImport } from "./routes/charts";
 import { Route as AboutImport } from "./routes/about";
 import { Route as IndexImport } from "./routes/index";
 
@@ -34,6 +35,12 @@ const DataRoute = DataImport.update({
 const ConfigRoute = ConfigImport.update({
   id: "/config",
   path: "/config",
+  getParentRoute: () => rootRoute,
+} as any);
+
+const ChartsRoute = ChartsImport.update({
+  id: "/charts",
+  path: "/charts",
   getParentRoute: () => rootRoute,
 } as any);
 
@@ -67,6 +74,13 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof AboutImport;
       parentRoute: typeof rootRoute;
     };
+    "/charts": {
+      id: "/charts";
+      path: "/charts";
+      fullPath: "/charts";
+      preLoaderRoute: typeof ChartsImport;
+      parentRoute: typeof rootRoute;
+    };
     "/config": {
       id: "/config";
       path: "/config";
@@ -96,6 +110,7 @@ declare module "@tanstack/react-router" {
 export interface FileRoutesByFullPath {
   "/": typeof IndexRoute;
   "/about": typeof AboutRoute;
+  "/charts": typeof ChartsRoute;
   "/config": typeof ConfigRoute;
   "/data": typeof DataRoute;
   "/server": typeof ServerRoute;
@@ -104,6 +119,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   "/": typeof IndexRoute;
   "/about": typeof AboutRoute;
+  "/charts": typeof ChartsRoute;
   "/config": typeof ConfigRoute;
   "/data": typeof DataRoute;
   "/server": typeof ServerRoute;
@@ -113,6 +129,7 @@ export interface FileRoutesById {
   __root__: typeof rootRoute;
   "/": typeof IndexRoute;
   "/about": typeof AboutRoute;
+  "/charts": typeof ChartsRoute;
   "/config": typeof ConfigRoute;
   "/data": typeof DataRoute;
   "/server": typeof ServerRoute;
@@ -120,16 +137,17 @@ export interface FileRoutesById {
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath;
-  fullPaths: "/" | "/about" | "/config" | "/data" | "/server";
+  fullPaths: "/" | "/about" | "/charts" | "/config" | "/data" | "/server";
   fileRoutesByTo: FileRoutesByTo;
-  to: "/" | "/about" | "/config" | "/data" | "/server";
-  id: "__root__" | "/" | "/about" | "/config" | "/data" | "/server";
+  to: "/" | "/about" | "/charts" | "/config" | "/data" | "/server";
+  id: "__root__" | "/" | "/about" | "/charts" | "/config" | "/data" | "/server";
   fileRoutesById: FileRoutesById;
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute;
   AboutRoute: typeof AboutRoute;
+  ChartsRoute: typeof ChartsRoute;
   ConfigRoute: typeof ConfigRoute;
   DataRoute: typeof DataRoute;
   ServerRoute: typeof ServerRoute;
@@ -138,6 +156,7 @@ export interface RootRouteChildren {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  ChartsRoute: ChartsRoute,
   ConfigRoute: ConfigRoute,
   DataRoute: DataRoute,
   ServerRoute: ServerRoute,
@@ -155,6 +174,7 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/about",
+        "/charts",
         "/config",
         "/data",
         "/server"
@@ -165,6 +185,9 @@ export const routeTree = rootRoute
     },
     "/about": {
       "filePath": "about.tsx"
+    },
+    "/charts": {
+      "filePath": "charts.tsx"
     },
     "/config": {
       "filePath": "config.tsx"
