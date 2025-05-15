@@ -3,41 +3,17 @@ import reactLogo from "./assets/react.svg";
 import { invoke } from "@tauri-apps/api/core";
 import "./App.css";
 
-const Home = React.lazy(() => import("./components/pages/Home"));
-const Config = React.lazy(() => import("./components/pages/Config"));
-const Server = React.lazy(() => import("./components/pages/Server"));
-const Data = React.lazy(() => import("./components/pages/Data"));
-
-const rootRoute = createRootRoute({
-  component: () => (
-    <Layout>
-      <AppProvider>
-        <Suspense fallback={<div>Loading...</div>}>
-          <Outlet />
-        </Suspense>
-      </AppProvider>
-    </Layout>
-  ),
-});
-
-const homeRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: "/",
-  component: Home,
-});
-
 function App() {
   const [greetMsg, setGreetMsg] = useState("");
   const [name, setName] = useState("");
 
   async function greet() {
-    // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
     setGreetMsg(await invoke("greet", { name }));
   }
 
   return (
     <main className="container">
-      <h1 class="text-3xl font-bold underline">Hello world!</h1>
+      <h1 className="text-3xl font-bold underline">Hello world!</h1>
       <h1>Welcome to Tauri + React</h1>
 
       <div className="row">
