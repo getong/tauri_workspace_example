@@ -59,3 +59,9 @@ bun add -D @tanstack/router-plugin @tanstack/react-router-devtools
 #+end_src
 
 copy from [[https://tanstack.com/router/latest/docs/framework/react/quick-start][Quick Start]]
+
+** some doc reference
+
+https://sorrycc.com/introducing-tanstack-router
+https://frontendmasters.com/blog/introducing-tanstack-router/
+https://github.com/arackaf/tanstack-router-routing-demo
