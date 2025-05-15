@@ -65,3 +65,15 @@ copy from [[https://tanstack.com/router/latest/docs/framework/react/quick-start]
 https://sorrycc.com/introducing-tanstack-router
 https://frontendmasters.com/blog/introducing-tanstack-router/
 https://github.com/arackaf/tanstack-router-routing-demo
+
+** add HTTP Client
+
+#+begin_src shell
+bun tauri add http
+#+end_src
+
+** after adding http client, build and run
+
+#+begin_src shell
+bun run tauri dev
+#+end_src
