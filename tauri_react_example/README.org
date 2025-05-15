@@ -161,3 +161,79 @@ animate();
 - Handle window resize events to maintain proper aspect ratio
 - For better performance, reuse geometries and materials when creating multiple objects
 - Add proper lighting for materials that require it (e.g., MeshStandardMaterial)
+
+** Data Visualization with Recharts
+:PROPERTIES:
+:CUSTOM_ID: data-visualization
+:END:
+
+This project uses Recharts to create interactive and responsive charts for data visualization within a Tauri application.
+
+*** Installation and Setup
+#+begin_src shell
+# Install Recharts library
+bun add recharts
+#+end_src
+
+*** Available Chart Types
+
+The application includes several chart types:
+
+**** Histogram & Waterfall Charts
+- Used to represent data distribution across categories
+- Supports both stacked and unstacked histogram representations
+- Includes interactive tooltips for data inspection
+
+**** Candlestick Charts (K-Line)
+- Financial stock price visualization 
+- Shows OHLC (Open-High-Low-Close) price data
+- Includes moving averages (MA5, MA20)
+- Features volume data visualization
+- Provides detailed tabular data with sorting and pagination
+
+*** Data Table Features
+- Sortable columns (click on column headers)
+- Pagination with adjustable page size
+- Color-coded values for improved readability
+  - Green: positive changes (price increases)
+  - Red: negative changes (price decreases)
+- Statistical summaries and key metrics
+
+*** Implementation Example
+
+#+begin_src typescript
+import { BarChart, Bar, XAxis, YAxis, Tooltip } from 'recharts';
+
+// Component example for basic chart
+function BasicChart({ data }) {
+  return (
+    <div style={{ width: '100%', height: 400 }}>
+      <ResponsiveContainer>
+        <BarChart data={data}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="name" />
+          <YAxis />
+          <Tooltip />
+          <Bar dataKey="value" fill="#8884d8" />
+        </BarChart>
+      </ResponsiveContainer>
+    </div>
+  );
+}
+#+end_src
+
+*** Best Practices
+
+- Use ResponsiveContainer to ensure charts resize properly
+- Provide clear tooltips for better user experience
+- Add proper legends and labels for data interpretation
+- Consider color schemes for data representation (red/green for financial data)
+- Consider accessibility in chart design (color choices, text size)
+- Optimize for performance with large datasets
+- When using real-time data, implement efficient update mechanisms
+
+*** Additional Resources
+
+- [[https://recharts.org/en-US][Recharts Documentation]]
+- [[https://recharts.org/en-US/examples][Recharts Examples]]
+- [[https://www.smashingmagazine.com/2020/03/creating-charts-react-recharts/][Creating Charts with React and Recharts]]
