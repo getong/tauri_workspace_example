@@ -78,6 +78,75 @@ bun tauri add http
 bun run tauri dev
 #+end_src
 
+** tauri ios development
+
+#+begin_src shell
+export APPLE_DEVELOPMENT_TEAM="XXXX"
+# enable network proxy, might use proxy to download some dependencies and compile
+bun tauri ios init
+bun tauri ios dev
+$ tauri ios dev
+/opt/homebrew/bin/ios-deploy
+Info package `ios-deploy` present: true
+Detected iOS simulators:
+[0] iPad (A16) (iOS 18.4)
+[1] iPad Air 11-inch (M3) (iOS 18.4)
+[2] iPad Air 13-inch (M3) (iOS 18.4)
+[3] iPad Pro 11-inch (M4) (iOS 18.4)
+[4] iPad Pro 13-inch (M4) (iOS 18.4)
+[5] iPad mini (A17 Pro) (iOS 18.4)
+[6] iPhone 16 (iOS 18.4)
+[7] iPhone 16 Plus (iOS 18.4)
+[8] iPhone 16 Pro (iOS 18.4)
+[9] iPhone 16 Pro Max (iOS 18.4)
+[10] iPhone 16e (iOS 18.4)
+Enter an index for a simulator above.
+Simulator: 6
+#+end_src
+
+copy from [[https://qiita.com/aqua_ix/items/d8d0c373df074fc599fc][Tauri でモバイルアプリをビルドする]]
+
+*** Fix Bundle Identifier for iOS
+:PROPERTIES:
+:CUSTOM_ID: fix-bundle-identifier
+:END:
+
+When running the iOS app, we encountered this error:
+#+begin_quote shell
+warning: invalid character in Bundle Identifier. This string must be a uniform type identifier (UTI) that contains only alphanumeric (A-Z,a-z,0-9), hyphen (-), and period (.) characters.
+An error was encountered processing the command (domain=FBSOpenApplicationServiceErrorDomain, code=4):
+Simulator device failed to launch com.tauri-react-example.app.
+#+end_quote
+
+*** The Solution
+
+Needed to update the bundle identifier format to follow Apple's requirements (no hyphens between segments):
+
+**** Changes in tauri.conf.json:
+#+begin_quote diff
+- "identifier": "com.tauri_react_example.app",
++ "identifier": "com.tauri.react.example.app",
+#+end_quote
+
+**** Changes in project.yml:
+#+begin_quote diff
+options:
+-  bundleIdPrefix: com.tauri-react-example.app
++  bundleIdPrefix: com.tauri.react.example
+
+settingGroups:
+  app:
+    base:
+      PRODUCT_NAME: tauri_react_example
+-     PRODUCT_BUNDLE_IDENTIFIER: com.tauri-react-example.app
++     PRODUCT_BUNDLE_IDENTIFIER: com.tauri.react.example.app
+#+end_quote
+
+*** After fixing the bundle ID, rebuild with:
+#+begin_src shell
+bun tauri ios dev
+#+end_src
+
 ** Three.js with Physics using Cannon-es
 :PROPERTIES:
 :CUSTOM_ID: threejs-physics
@@ -141,14 +210,14 @@ world.addBody(boxBody);
 // Animation loop
 function animate() {
   requestAnimationFrame(animate);
-  
+
   // Step the physics world
   world.step(1/60);
-  
+
   // Update mesh position to match physics body
   boxMesh.position.copy(boxBody.position);
   boxMesh.quaternion.copy(boxBody.quaternion);
-  
+
   renderer.render(scene, camera);
 }
 animate();
@@ -185,7 +254,7 @@ The application includes several chart types:
 - Includes interactive tooltips for data inspection
 
 **** Candlestick Charts (K-Line)
-- Financial stock price visualization 
+- Financial stock price visualization
 - Shows OHLC (Open-High-Low-Close) price data
 - Includes moving averages (MA5, MA20)
 - Features volume data visualization

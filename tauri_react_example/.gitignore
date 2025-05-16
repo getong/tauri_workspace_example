@@ -25,3 +25,5 @@ dist-ssr
 **/bun.lockb
 **/bun.lock
 **/.DS_Store
+# ios generate directory
+src-tauri/gen
