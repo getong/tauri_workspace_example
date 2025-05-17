@@ -344,17 +344,17 @@ import * as THREE from 'three'
 function Box(props) {
   // Reference to the mesh
   const meshRef = useRef()
-  
+
   // State for interaction
   const [hovered, setHover] = useState(false)
   const [active, setActive] = useState(false)
-  
+
   // Run on every frame
   useFrame((state, delta) => {
     meshRef.current.rotation.x += delta * 0.5
     meshRef.current.rotation.y += delta * 0.2
   })
-  
+
   return (
     <mesh
       {...props}
@@ -385,7 +385,7 @@ function App() {
 
 *** Using R3F with Tauri
 
-1. *Performance Considerations:* 
+1. *Performance Considerations:*
    - Tauri apps run on native WebView, which typically has good WebGL support
    - Use performance optimizations like instancing for complex scenes
 
@@ -414,3 +414,16 @@ function App() {
 - [[https://threejs-journey.com/][Three.js Journey Course]]
 - [[https://github.com/pmndrs/gltfjsx][GLTFJSX - Convert 3D models to JSX components]]
 - [[https://codesandbox.io/examples/package/@react-three/fiber][Example Projects on CodeSandbox]]
+
+*** Resolving "library 'app' not found" Error for Intel Macs
+:PROPERTIES:
+:CUSTOM_ID: resolving-library-app-not-found
+:END:
+
+When building for iOS on Intel Macs (x86_64), you might encounter a linker error:
+#+begin_quote shell
+ld: library 'app' not found
+clang++: error: linker command failed with exit code 1 (use -v to see invocation)
+#+end_quote
+
+This happens because the build system needs to properly create and locate library files for both ARM64 and x86_64 architectures.
