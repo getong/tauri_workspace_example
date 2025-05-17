@@ -11,7 +11,6 @@
 // Import Routes
 
 import { Route as rootRoute } from "./routes/__root";
-import { Route as WebViewerImport } from "./routes/web-viewer";
 import { Route as ServerImport } from "./routes/server";
 import { Route as R3fImport } from "./routes/r3f";
 import { Route as DataImport } from "./routes/data";
@@ -22,12 +21,6 @@ import { Route as AboutImport } from "./routes/about";
 import { Route as IndexImport } from "./routes/index";
 
 // Create/Update Routes
-
-const WebViewerRoute = WebViewerImport.update({
-  id: "/web-viewer",
-  path: "/web-viewer",
-  getParentRoute: () => rootRoute,
-} as any);
 
 const ServerRoute = ServerImport.update({
   id: "/server",
@@ -137,13 +130,6 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof ServerImport;
       parentRoute: typeof rootRoute;
     };
-    "/web-viewer": {
-      id: "/web-viewer";
-      path: "/web-viewer";
-      fullPath: "/web-viewer";
-      preLoaderRoute: typeof WebViewerImport;
-      parentRoute: typeof rootRoute;
-    };
   }
 }
 
@@ -158,7 +144,6 @@ export interface FileRoutesByFullPath {
   "/data": typeof DataRoute;
   "/r3f": typeof R3fRoute;
   "/server": typeof ServerRoute;
-  "/web-viewer": typeof WebViewerRoute;
 }
 
 export interface FileRoutesByTo {
@@ -170,7 +155,6 @@ export interface FileRoutesByTo {
   "/data": typeof DataRoute;
   "/r3f": typeof R3fRoute;
   "/server": typeof ServerRoute;
-  "/web-viewer": typeof WebViewerRoute;
 }
 
 export interface FileRoutesById {
@@ -183,7 +167,6 @@ export interface FileRoutesById {
   "/data": typeof DataRoute;
   "/r3f": typeof R3fRoute;
   "/server": typeof ServerRoute;
-  "/web-viewer": typeof WebViewerRoute;
 }
 
 export interface FileRouteTypes {
@@ -196,8 +179,7 @@ export interface FileRouteTypes {
     | "/config"
     | "/data"
     | "/r3f"
-    | "/server"
-    | "/web-viewer";
+    | "/server";
   fileRoutesByTo: FileRoutesByTo;
   to:
     | "/"
@@ -207,8 +189,7 @@ export interface FileRouteTypes {
     | "/config"
     | "/data"
     | "/r3f"
-    | "/server"
-    | "/web-viewer";
+    | "/server";
   id:
     | "__root__"
     | "/"
@@ -218,8 +199,7 @@ export interface FileRouteTypes {
     | "/config"
     | "/data"
     | "/r3f"
-    | "/server"
-    | "/web-viewer";
+    | "/server";
   fileRoutesById: FileRoutesById;
 }
 
@@ -232,7 +212,6 @@ export interface RootRouteChildren {
   DataRoute: typeof DataRoute;
   R3fRoute: typeof R3fRoute;
   ServerRoute: typeof ServerRoute;
-  WebViewerRoute: typeof WebViewerRoute;
 }
 
 const rootRouteChildren: RootRouteChildren = {
@@ -244,7 +223,6 @@ const rootRouteChildren: RootRouteChildren = {
   DataRoute: DataRoute,
   R3fRoute: R3fRoute,
   ServerRoute: ServerRoute,
-  WebViewerRoute: WebViewerRoute,
 };
 
 export const routeTree = rootRoute
@@ -264,8 +242,7 @@ export const routeTree = rootRoute
         "/config",
         "/data",
         "/r3f",
-        "/server",
-        "/web-viewer"
+        "/server"
       ]
     },
     "/": {
@@ -291,9 +268,6 @@ export const routeTree = rootRoute
     },
     "/server": {
       "filePath": "server.tsx"
-    },
-    "/web-viewer": {
-      "filePath": "web-viewer.tsx"
     }
   }
 }

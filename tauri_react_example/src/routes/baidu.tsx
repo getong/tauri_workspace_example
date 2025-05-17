@@ -39,6 +39,38 @@ function BaiduPage() {
     fetchData();
   }, []);
 
+  // Function to format HTML with indentation and line breaks
+  const formatHtml = (html: string) => {
+    // Replace consecutive spaces with a single space
+    let formatted = html.replace(/\s{2,}/g, " ");
+
+    // Add line breaks after closing tags
+    formatted = formatted.replace(/>/g, ">\n");
+
+    // Add line breaks before opening tags except for inline elements
+    const inlineElements = [
+      "span",
+      "a",
+      "strong",
+      "em",
+      "b",
+      "i",
+      "u",
+      "s",
+      "sub",
+      "sup",
+      "img",
+      "br",
+    ];
+    const inlinePattern = new RegExp(
+      `<(?!\\/)((?!${inlineElements.join("|")})\\w+)`,
+      "g",
+    );
+    formatted = formatted.replace(inlinePattern, "\n<$1");
+
+    return formatted;
+  };
+
   if (loading)
     return (
       <div className="flex flex-col items-center justify-center p-8 h-screen">
@@ -69,43 +101,86 @@ function BaiduPage() {
     );
 
   return (
-    <div className="fixed inset-0 flex flex-col overflow-hidden">
-      <h1 className="text-2xl font-bold p-4 bg-white border-b">
-        Baidu Content
-      </h1>
+    <div className="flex flex-col h-screen overflow-hidden">
+      {/* Header Section */}
+      <header className="flex-none bg-white border-b shadow-sm z-10">
+        <h1 className="text-2xl font-bold p-4">Baidu Content</h1>
+      </header>
 
-      <iframe
-        srcDoc={data}
+      {/* Content Section */}
+      <main
+        className="flex-grow relative overflow-hidden p-3 bg-gray-50"
+        style={{ height: "calc(100vh - 180px)" }}
+      >
+        <iframe
+          srcDoc={data}
+          style={{
+            width: "100%",
+            height: "100%",
+            border: "1px solid #eaeaea",
+            borderRadius: "4px",
+            backgroundColor: "#fff",
+            boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
+            display: "block",
+          }}
+          title="Baidu Content"
+          sandbox="allow-same-origin allow-scripts"
+        />
+      </main>
+
+      {/* Details panel with relative positioning */}
+      <details
+        className="flex-none bg-white border-t p-2 m-2 rounded border"
         style={{
-          position: "absolute",
-          top: "70px", // Increased from 57px to give more space below header
-          bottom: "40px", // Added bottom margin to avoid overlapping with controls
-          left: "10px", // Added side margins
-          right: "10px", // Added side margins
-          width: "calc(100% - 20px)", // Adjusted width to account for side margins
-          border: "1px solid #eaeaea",
-          borderRadius: "4px",
-          backgroundColor: "#fff",
-          boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
-          transform: "scale(0.95)", // Slightly scale down for better viewing
-          transformOrigin: "top center",
-          margin: "auto",
+          zIndex: 2,
+          maxHeight: "100px",
+          overflow: "hidden",
+          transition: "max-height 0.5s ease-in-out",
+          boxShadow:
+            "0 -2px 5px rgba(0, 0, 0, 0.05), 0 2px 5px rgba(0, 0, 0, 0.05)",
+          borderColor: "#e5e7eb",
+          marginTop: "0",
         }}
-        title="Baidu Content"
-        sandbox="allow-same-origin allow-scripts"
-      />
-
-      <details className="absolute bottom-0 left-0 right-0 bg-white border-t p-2">
+        onClick={(e) => {
+          const target = e.currentTarget;
+          if (target.open) {
+            target.style.maxHeight = "60vh"; // Much larger when open - 60% of viewport height
+          } else {
+            target.style.maxHeight = "100px"; // Height when closed
+          }
+        }}
+      >
         <summary className="text-sm font-semibold cursor-pointer flex justify-between items-center">
-          <span>View Source</span>
+          <span>View Source </span>
           <span className="text-xs text-gray-500">www.baidu.com</span>
         </summary>
-        <pre className="whitespace-pre-wrap text-sm overflow-auto max-h-60 mt-2 p-3 bg-gray-50 border rounded">
-          {data
-            ? data.length > 1000
-              ? data.substring(0, 1000) + "..."
-              : data
-            : "No data"}
+        <pre
+          className="overflow-auto mt-2 p-3 bg-gray-50 border rounded"
+          style={{
+            wordBreak: "break-all",
+            whiteSpace: "pre-wrap",
+            wordWrap: "break-word",
+            lineHeight: "1.5",
+            maxHeight: "50vh",
+            height: "50vh", // Added explicit height
+            fontSize: "0.75rem",
+            overflowY: "scroll", // Changed from auto to scroll to ensure scrollbar visibility
+            overflowX: "auto",
+            display: "block", // Ensure it's treated as a block element
+            cursor: "text", // Better cursor for text selection
+            WebkitOverflowScrolling: "touch", // Better scrolling on iOS
+            scrollbarWidth: "thin", // Thin scrollbar for Firefox
+            scrollbarColor: "#cbd5e0 #f7fafc", // Custom scrollbar colors for Firefox
+          }}
+          // Prevent toggling the details element when interacting with the pre
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
+          onScroll={(e) => {
+            e.stopPropagation();
+          }}
+        >
+          {data ? formatHtml(data) : "No data"}
         </pre>
       </details>
     </div>

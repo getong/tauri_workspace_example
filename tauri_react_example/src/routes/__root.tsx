@@ -24,7 +24,10 @@ export const Route = createRootRoute({
         </Link>{" "}
         <Link to="/r3f" className="[&.active]:font-bold">
           R3F
-        </Link>
+        </Link>{" "}
+        <Link to="/baidu" className="[&.active]:font-bold">
+          Baidu
+        </Link>{" "}
       </div>
       <hr />
       <Outlet />

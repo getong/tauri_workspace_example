@@ -31,25 +31,6 @@ function Index() {
           anywhere in the scene to drop objects!
         </p>
       </div>
-
-      <div className="mb-8">
-        <h2 className="text-xl font-semibold mb-4">Demo Pages</h2>
-        <div className="flex flex-col gap-2">
-          <Link
-            to="/web-viewer"
-            className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded inline-block w-fit"
-          >
-            Web Viewer
-          </Link>
-          <Link
-            to="/baidu"
-            className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded inline-block w-fit"
-          >
-            Baidu Page
-          </Link>
-          {/* ...existing demo links... */}
-        </div>
-      </div>
     </div>
   );
 }
