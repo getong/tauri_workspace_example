@@ -7,11 +7,17 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "tauri": "tauri"
+    "tauri": "tauri",
+    "setup-ios": "bash ./setup-ios.sh",
+    "ios-init": "tauri ios init",
+    "ios-dev": "export RUST_BACKTRACE=1 && tauri ios dev",
+    "ios-build": "bash ./build-ios.sh"
   },
   "dependencies": {
+    "@react-three/drei": "^10.0.7",
+    "@react-three/fiber": "^9.1.2",
     "@tailwindcss/vite": "^4.1.7",
-    "@tanstack/react-router": "^1.120.3",
+    "@tanstack/react-router": "^1.120.5",
     "@tauri-apps/api": "^2",
     "@tauri-apps/plugin-http": "~2",
     "@tauri-apps/plugin-opener": "^2",
@@ -23,8 +29,8 @@
     "three": "^0.176.0"
   },
   "devDependencies": {
-    "@tanstack/react-router-devtools": "^1.120.3",
-    "@tanstack/router-plugin": "^1.120.3",
+    "@tanstack/react-router-devtools": "^1.120.5",
+    "@tanstack/router-plugin": "^1.120.5",
     "@tauri-apps/cli": "^2",
     "@types/cannon": "^0.1.13",
     "@types/react": "^19.1.4",

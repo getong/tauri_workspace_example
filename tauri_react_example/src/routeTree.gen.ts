@@ -12,6 +12,7 @@
 
 import { Route as rootRoute } from "./routes/__root";
 import { Route as ServerImport } from "./routes/server";
+import { Route as R3fImport } from "./routes/r3f";
 import { Route as DataImport } from "./routes/data";
 import { Route as ConfigImport } from "./routes/config";
 import { Route as ChartsImport } from "./routes/charts";
@@ -23,6 +24,12 @@ import { Route as IndexImport } from "./routes/index";
 const ServerRoute = ServerImport.update({
   id: "/server",
   path: "/server",
+  getParentRoute: () => rootRoute,
+} as any);
+
+const R3fRoute = R3fImport.update({
+  id: "/r3f",
+  path: "/r3f",
   getParentRoute: () => rootRoute,
 } as any);
 
@@ -95,6 +102,13 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof DataImport;
       parentRoute: typeof rootRoute;
     };
+    "/r3f": {
+      id: "/r3f";
+      path: "/r3f";
+      fullPath: "/r3f";
+      preLoaderRoute: typeof R3fImport;
+      parentRoute: typeof rootRoute;
+    };
     "/server": {
       id: "/server";
       path: "/server";
@@ -113,6 +127,7 @@ export interface FileRoutesByFullPath {
   "/charts": typeof ChartsRoute;
   "/config": typeof ConfigRoute;
   "/data": typeof DataRoute;
+  "/r3f": typeof R3fRoute;
   "/server": typeof ServerRoute;
 }
 
@@ -122,6 +137,7 @@ export interface FileRoutesByTo {
   "/charts": typeof ChartsRoute;
   "/config": typeof ConfigRoute;
   "/data": typeof DataRoute;
+  "/r3f": typeof R3fRoute;
   "/server": typeof ServerRoute;
 }
 
@@ -132,15 +148,31 @@ export interface FileRoutesById {
   "/charts": typeof ChartsRoute;
   "/config": typeof ConfigRoute;
   "/data": typeof DataRoute;
+  "/r3f": typeof R3fRoute;
   "/server": typeof ServerRoute;
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath;
-  fullPaths: "/" | "/about" | "/charts" | "/config" | "/data" | "/server";
+  fullPaths:
+    | "/"
+    | "/about"
+    | "/charts"
+    | "/config"
+    | "/data"
+    | "/r3f"
+    | "/server";
   fileRoutesByTo: FileRoutesByTo;
-  to: "/" | "/about" | "/charts" | "/config" | "/data" | "/server";
-  id: "__root__" | "/" | "/about" | "/charts" | "/config" | "/data" | "/server";
+  to: "/" | "/about" | "/charts" | "/config" | "/data" | "/r3f" | "/server";
+  id:
+    | "__root__"
+    | "/"
+    | "/about"
+    | "/charts"
+    | "/config"
+    | "/data"
+    | "/r3f"
+    | "/server";
   fileRoutesById: FileRoutesById;
 }
 
@@ -150,6 +182,7 @@ export interface RootRouteChildren {
   ChartsRoute: typeof ChartsRoute;
   ConfigRoute: typeof ConfigRoute;
   DataRoute: typeof DataRoute;
+  R3fRoute: typeof R3fRoute;
   ServerRoute: typeof ServerRoute;
 }
 
@@ -159,6 +192,7 @@ const rootRouteChildren: RootRouteChildren = {
   ChartsRoute: ChartsRoute,
   ConfigRoute: ConfigRoute,
   DataRoute: DataRoute,
+  R3fRoute: R3fRoute,
   ServerRoute: ServerRoute,
 };
 
@@ -177,6 +211,7 @@ export const routeTree = rootRoute
         "/charts",
         "/config",
         "/data",
+        "/r3f",
         "/server"
       ]
     },
@@ -194,6 +229,9 @@ export const routeTree = rootRoute
     },
     "/data": {
       "filePath": "data.tsx"
+    },
+    "/r3f": {
+      "filePath": "r3f.tsx"
     },
     "/server": {
       "filePath": "server.tsx"

@@ -306,3 +306,111 @@ function BasicChart({ data }) {
 - [[https://recharts.org/en-US][Recharts Documentation]]
 - [[https://recharts.org/en-US/examples][Recharts Examples]]
 - [[https://www.smashingmagazine.com/2020/03/creating-charts-react-recharts/][Creating Charts with React and Recharts]]
+
+** React Three Fiber Integration
+:PROPERTIES:
+:CUSTOM_ID: react-three-fiber
+:END:
+
+This project integrates React Three Fiber (R3F), a React renderer for Three.js that makes it easier to build 3D scenes using React's component pattern.
+
+*** Installation
+#+begin_src shell
+# Install React Three Fiber and helpers
+bun add @react-three/fiber @react-three/drei
+
+# Three.js should already be installed
+# If not, add it with: bun add three
+#+end_src
+
+*** Key Features of React Three Fiber
+
+- *Declarative Approach:* Use React components to define 3D elements
+- *Automatic Resource Management:* Handles disposal of Three.js objects
+- *React Integration:* Seamlessly works with React states, props, and hooks
+- *Optimized Performance:* Efficient rendering with automatic batching
+- *Simplified Physics Integration:* Easier integration with physics engines
+
+*** Implementation Example
+
+A basic React Three Fiber scene with interactive elements:
+
+#+begin_src typescript
+import { Canvas, useFrame } from '@react-three/fiber'
+import { OrbitControls } from '@react-three/drei'
+import { useRef, useState } from 'react'
+import * as THREE from 'three'
+
+function Box(props) {
+  // Reference to the mesh
+  const meshRef = useRef()
+  
+  // State for interaction
+  const [hovered, setHover] = useState(false)
+  const [active, setActive] = useState(false)
+  
+  // Run on every frame
+  useFrame((state, delta) => {
+    meshRef.current.rotation.x += delta * 0.5
+    meshRef.current.rotation.y += delta * 0.2
+  })
+  
+  return (
+    <mesh
+      {...props}
+      ref={meshRef}
+      scale={active ? 1.5 : 1}
+      onClick={() => setActive(!active)}
+      onPointerOver={() => setHover(true)}
+      onPointerOut={() => setHover(false)}>
+      <boxGeometry args={[1, 1, 1]} />
+      <meshStandardMaterial color={hovered ? 'hotpink' : 'orange'} />
+    </mesh>
+  )
+}
+
+function App() {
+  return (
+    <Canvas>
+      <ambientLight intensity={0.5} />
+      <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
+      <pointLight position={[-10, -10, -10]} />
+      <Box position={[-1.2, 0, 0]} />
+      <Box position={[1.2, 0, 0]} />
+      <OrbitControls />
+    </Canvas>
+  )
+}
+#+end_src
+
+*** Using R3F with Tauri
+
+1. *Performance Considerations:* 
+   - Tauri apps run on native WebView, which typically has good WebGL support
+   - Use performance optimizations like instancing for complex scenes
+
+2. *Mobile Support:*
+   - For iOS/Android Tauri apps, check WebGL compatibility
+   - Consider implementing fallbacks for devices with limited 3D support
+
+3. *Integration with Native Features:*
+   - R3F can be combined with Tauri's Rust backend for data processing
+   - Use Tauri commands to handle heavy computations that feed into 3D visualizations
+
+*** Comparison with Vanilla Three.js
+
+| Aspect           | React Three Fiber                              | Vanilla Three.js                       |
+|------------------+-----------------------------------------------+---------------------------------------|
+| Syntax           | React components (declarative)                | Imperative API calls                  |
+| State Management | React hooks and props                         | Manual state tracking                 |
+| Cleanup          | Automatic disposal                            | Manual disposal required              |
+| Learning Curve   | Easy for React developers                     | Steeper for those new to 3D graphics  |
+| Performance      | Good with proper optimizations                | Potentially better for complex scenes |
+
+*** Additional Resources
+
+- [[https://docs.pmnd.rs/react-three-fiber/getting-started/introduction][React Three Fiber Documentation]]
+- [[https://github.com/pmndrs/drei][React Three Drei (Helpers)]]
+- [[https://threejs-journey.com/][Three.js Journey Course]]
+- [[https://github.com/pmndrs/gltfjsx][GLTFJSX - Convert 3D models to JSX components]]
+- [[https://codesandbox.io/examples/package/@react-three/fiber][Example Projects on CodeSandbox]]
