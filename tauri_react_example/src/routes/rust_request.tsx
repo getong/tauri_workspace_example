@@ -2,11 +2,11 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { invoke } from "@tauri-apps/api/core";
 
-export const Route = createFileRoute("/rustrequest")({
-  component: BaiduPage,
+export const Route = createFileRoute("/rust_request")({
+  component: RustRequestPage,
 });
 
-function BaiduPage() {
+function RustRequestPage() {
   const [data, setData] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -104,7 +104,9 @@ function BaiduPage() {
     <div className="flex flex-col h-screen overflow-hidden">
       {/* Header Section */}
       <header className="flex-none bg-white border-b shadow-sm z-10">
-        <h1 className="text-2xl font-bold p-4">view web Content from rust backend</h1>
+        <h1 className="text-2xl font-bold p-4">
+          view web Content from rust backend
+        </h1>
       </header>
 
       {/* Content Section */}
@@ -187,4 +189,4 @@ function BaiduPage() {
   );
 }
 
-export default BaiduPage;
+export default RustRequestPage;

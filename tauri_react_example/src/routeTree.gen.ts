@@ -12,11 +12,11 @@
 
 import { Route as rootRoute } from "./routes/__root";
 import { Route as ServerImport } from "./routes/server";
+import { Route as RustrequestImport } from "./routes/rust_request";
 import { Route as R3fImport } from "./routes/r3f";
 import { Route as DataImport } from "./routes/data";
 import { Route as ConfigImport } from "./routes/config";
 import { Route as ChartsImport } from "./routes/charts";
-import { Route as BaiduImport } from "./routes/baidu";
 import { Route as AboutImport } from "./routes/about";
 import { Route as IndexImport } from "./routes/index";
 
@@ -25,6 +25,12 @@ import { Route as IndexImport } from "./routes/index";
 const ServerRoute = ServerImport.update({
   id: "/server",
   path: "/server",
+  getParentRoute: () => rootRoute,
+} as any);
+
+const RustrequestRoute = RustrequestImport.update({
+  id: "/rust_request",
+  path: "/rust_request",
   getParentRoute: () => rootRoute,
 } as any);
 
@@ -49,12 +55,6 @@ const ConfigRoute = ConfigImport.update({
 const ChartsRoute = ChartsImport.update({
   id: "/charts",
   path: "/charts",
-  getParentRoute: () => rootRoute,
-} as any);
-
-const BaiduRoute = BaiduImport.update({
-  id: "/baidu",
-  path: "/baidu",
   getParentRoute: () => rootRoute,
 } as any);
 
@@ -88,13 +88,6 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof AboutImport;
       parentRoute: typeof rootRoute;
     };
-    "/baidu": {
-      id: "/baidu";
-      path: "/baidu";
-      fullPath: "/baidu";
-      preLoaderRoute: typeof BaiduImport;
-      parentRoute: typeof rootRoute;
-    };
     "/charts": {
       id: "/charts";
       path: "/charts";
@@ -123,6 +116,13 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof R3fImport;
       parentRoute: typeof rootRoute;
     };
+    "/rust_request": {
+      id: "/rust_request";
+      path: "/rust_request";
+      fullPath: "/rust_request";
+      preLoaderRoute: typeof RustrequestImport;
+      parentRoute: typeof rootRoute;
+    };
     "/server": {
       id: "/server";
       path: "/server";
@@ -138,22 +138,22 @@ declare module "@tanstack/react-router" {
 export interface FileRoutesByFullPath {
   "/": typeof IndexRoute;
   "/about": typeof AboutRoute;
-  "/baidu": typeof BaiduRoute;
   "/charts": typeof ChartsRoute;
   "/config": typeof ConfigRoute;
   "/data": typeof DataRoute;
   "/r3f": typeof R3fRoute;
+  "/rust_request": typeof RustrequestRoute;
   "/server": typeof ServerRoute;
 }
 
 export interface FileRoutesByTo {
   "/": typeof IndexRoute;
   "/about": typeof AboutRoute;
-  "/baidu": typeof BaiduRoute;
   "/charts": typeof ChartsRoute;
   "/config": typeof ConfigRoute;
   "/data": typeof DataRoute;
   "/r3f": typeof R3fRoute;
+  "/rust_request": typeof RustrequestRoute;
   "/server": typeof ServerRoute;
 }
 
@@ -161,11 +161,11 @@ export interface FileRoutesById {
   __root__: typeof rootRoute;
   "/": typeof IndexRoute;
   "/about": typeof AboutRoute;
-  "/baidu": typeof BaiduRoute;
   "/charts": typeof ChartsRoute;
   "/config": typeof ConfigRoute;
   "/data": typeof DataRoute;
   "/r3f": typeof R3fRoute;
+  "/rust_request": typeof RustrequestRoute;
   "/server": typeof ServerRoute;
 }
 
@@ -174,31 +174,31 @@ export interface FileRouteTypes {
   fullPaths:
     | "/"
     | "/about"
-    | "/baidu"
     | "/charts"
     | "/config"
     | "/data"
     | "/r3f"
+    | "/rust_request"
     | "/server";
   fileRoutesByTo: FileRoutesByTo;
   to:
     | "/"
     | "/about"
-    | "/baidu"
     | "/charts"
     | "/config"
     | "/data"
     | "/r3f"
+    | "/rust_request"
     | "/server";
   id:
     | "__root__"
     | "/"
     | "/about"
-    | "/baidu"
     | "/charts"
     | "/config"
     | "/data"
     | "/r3f"
+    | "/rust_request"
     | "/server";
   fileRoutesById: FileRoutesById;
 }
@@ -206,22 +206,22 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute;
   AboutRoute: typeof AboutRoute;
-  BaiduRoute: typeof BaiduRoute;
   ChartsRoute: typeof ChartsRoute;
   ConfigRoute: typeof ConfigRoute;
   DataRoute: typeof DataRoute;
   R3fRoute: typeof R3fRoute;
+  RustrequestRoute: typeof RustrequestRoute;
   ServerRoute: typeof ServerRoute;
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
-  BaiduRoute: BaiduRoute,
   ChartsRoute: ChartsRoute,
   ConfigRoute: ConfigRoute,
   DataRoute: DataRoute,
   R3fRoute: R3fRoute,
+  RustrequestRoute: RustrequestRoute,
   ServerRoute: ServerRoute,
 };
 
@@ -237,11 +237,11 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/about",
-        "/baidu",
         "/charts",
         "/config",
         "/data",
         "/r3f",
+        "/rust_request",
         "/server"
       ]
     },
@@ -250,9 +250,6 @@ export const routeTree = rootRoute
     },
     "/about": {
       "filePath": "about.tsx"
-    },
-    "/baidu": {
-      "filePath": "baidu.tsx"
     },
     "/charts": {
       "filePath": "charts.tsx"
@@ -265,6 +262,9 @@ export const routeTree = rootRoute
     },
     "/r3f": {
       "filePath": "r3f.tsx"
+    },
+    "/rust_request": {
+      "filePath": "rust_request.tsx"
     },
     "/server": {
       "filePath": "server.tsx"
