@@ -17,7 +17,8 @@ function Box(props: BoxProps) {
   const [active, setActive] = useState(false);
 
   // Subscribe this component to the render-loop, rotate the mesh every frame
-  useFrame((state, delta) => {
+  // Changed to use _ to indicate intentionally unused parameter
+  useFrame((_state, delta) => {
     meshRef.current.rotation.x += delta * 0.5;
     meshRef.current.rotation.y += delta * 0.2;
   });

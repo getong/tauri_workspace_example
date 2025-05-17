@@ -149,6 +149,17 @@ const renderCandlestick = (props: any) => {
   );
 };
 
+// Define the shape props interface
+interface CandlestickProps {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  index: number;
+  payload?: any;
+  // Add other properties that might be needed
+}
+
 const KLineChart = ({ className = "" }: KLineChartProps) => {
   const [data, setData] = useState<StockData[]>([]);
   const [loaded, setLoaded] = useState(false);
@@ -300,14 +311,18 @@ const KLineChart = ({ className = "" }: KLineChartProps) => {
                 dataKey="close"
                 yAxisId="price"
                 name="Price"
-                shape={(props) => {
+                shape={(props: any) => {
+                  // Type safety with casting
+                  const typedProps = props as CandlestickProps;
+                  const index = typedProps.index;
+
                   // Calculate the height from open to close
-                  const entry = data[props.index];
+                  const entry = data[index];
                   const height = Math.abs(entry.close - entry.open);
                   const y = Math.min(entry.open, entry.close);
 
                   return renderCandlestick({
-                    ...props,
+                    ...typedProps,
                     height,
                     y,
                     open: entry.open,
