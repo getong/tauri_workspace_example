@@ -11,15 +11,23 @@
 // Import Routes
 
 import { Route as rootRoute } from "./routes/__root";
+import { Route as WebViewerImport } from "./routes/web-viewer";
 import { Route as ServerImport } from "./routes/server";
 import { Route as R3fImport } from "./routes/r3f";
 import { Route as DataImport } from "./routes/data";
 import { Route as ConfigImport } from "./routes/config";
 import { Route as ChartsImport } from "./routes/charts";
+import { Route as BaiduImport } from "./routes/baidu";
 import { Route as AboutImport } from "./routes/about";
 import { Route as IndexImport } from "./routes/index";
 
 // Create/Update Routes
+
+const WebViewerRoute = WebViewerImport.update({
+  id: "/web-viewer",
+  path: "/web-viewer",
+  getParentRoute: () => rootRoute,
+} as any);
 
 const ServerRoute = ServerImport.update({
   id: "/server",
@@ -51,6 +59,12 @@ const ChartsRoute = ChartsImport.update({
   getParentRoute: () => rootRoute,
 } as any);
 
+const BaiduRoute = BaiduImport.update({
+  id: "/baidu",
+  path: "/baidu",
+  getParentRoute: () => rootRoute,
+} as any);
+
 const AboutRoute = AboutImport.update({
   id: "/about",
   path: "/about",
@@ -79,6 +93,13 @@ declare module "@tanstack/react-router" {
       path: "/about";
       fullPath: "/about";
       preLoaderRoute: typeof AboutImport;
+      parentRoute: typeof rootRoute;
+    };
+    "/baidu": {
+      id: "/baidu";
+      path: "/baidu";
+      fullPath: "/baidu";
+      preLoaderRoute: typeof BaiduImport;
       parentRoute: typeof rootRoute;
     };
     "/charts": {
@@ -116,6 +137,13 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof ServerImport;
       parentRoute: typeof rootRoute;
     };
+    "/web-viewer": {
+      id: "/web-viewer";
+      path: "/web-viewer";
+      fullPath: "/web-viewer";
+      preLoaderRoute: typeof WebViewerImport;
+      parentRoute: typeof rootRoute;
+    };
   }
 }
 
@@ -124,32 +152,38 @@ declare module "@tanstack/react-router" {
 export interface FileRoutesByFullPath {
   "/": typeof IndexRoute;
   "/about": typeof AboutRoute;
+  "/baidu": typeof BaiduRoute;
   "/charts": typeof ChartsRoute;
   "/config": typeof ConfigRoute;
   "/data": typeof DataRoute;
   "/r3f": typeof R3fRoute;
   "/server": typeof ServerRoute;
+  "/web-viewer": typeof WebViewerRoute;
 }
 
 export interface FileRoutesByTo {
   "/": typeof IndexRoute;
   "/about": typeof AboutRoute;
+  "/baidu": typeof BaiduRoute;
   "/charts": typeof ChartsRoute;
   "/config": typeof ConfigRoute;
   "/data": typeof DataRoute;
   "/r3f": typeof R3fRoute;
   "/server": typeof ServerRoute;
+  "/web-viewer": typeof WebViewerRoute;
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute;
   "/": typeof IndexRoute;
   "/about": typeof AboutRoute;
+  "/baidu": typeof BaiduRoute;
   "/charts": typeof ChartsRoute;
   "/config": typeof ConfigRoute;
   "/data": typeof DataRoute;
   "/r3f": typeof R3fRoute;
   "/server": typeof ServerRoute;
+  "/web-viewer": typeof WebViewerRoute;
 }
 
 export interface FileRouteTypes {
@@ -157,43 +191,60 @@ export interface FileRouteTypes {
   fullPaths:
     | "/"
     | "/about"
+    | "/baidu"
     | "/charts"
     | "/config"
     | "/data"
     | "/r3f"
-    | "/server";
+    | "/server"
+    | "/web-viewer";
   fileRoutesByTo: FileRoutesByTo;
-  to: "/" | "/about" | "/charts" | "/config" | "/data" | "/r3f" | "/server";
+  to:
+    | "/"
+    | "/about"
+    | "/baidu"
+    | "/charts"
+    | "/config"
+    | "/data"
+    | "/r3f"
+    | "/server"
+    | "/web-viewer";
   id:
     | "__root__"
     | "/"
     | "/about"
+    | "/baidu"
     | "/charts"
     | "/config"
     | "/data"
     | "/r3f"
-    | "/server";
+    | "/server"
+    | "/web-viewer";
   fileRoutesById: FileRoutesById;
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute;
   AboutRoute: typeof AboutRoute;
+  BaiduRoute: typeof BaiduRoute;
   ChartsRoute: typeof ChartsRoute;
   ConfigRoute: typeof ConfigRoute;
   DataRoute: typeof DataRoute;
   R3fRoute: typeof R3fRoute;
   ServerRoute: typeof ServerRoute;
+  WebViewerRoute: typeof WebViewerRoute;
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  BaiduRoute: BaiduRoute,
   ChartsRoute: ChartsRoute,
   ConfigRoute: ConfigRoute,
   DataRoute: DataRoute,
   R3fRoute: R3fRoute,
   ServerRoute: ServerRoute,
+  WebViewerRoute: WebViewerRoute,
 };
 
 export const routeTree = rootRoute
@@ -208,11 +259,13 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/about",
+        "/baidu",
         "/charts",
         "/config",
         "/data",
         "/r3f",
-        "/server"
+        "/server",
+        "/web-viewer"
       ]
     },
     "/": {
@@ -220,6 +273,9 @@ export const routeTree = rootRoute
     },
     "/about": {
       "filePath": "about.tsx"
+    },
+    "/baidu": {
+      "filePath": "baidu.tsx"
     },
     "/charts": {
       "filePath": "charts.tsx"
@@ -235,6 +291,9 @@ export const routeTree = rootRoute
     },
     "/server": {
       "filePath": "server.tsx"
+    },
+    "/web-viewer": {
+      "filePath": "web-viewer.tsx"
     }
   }
 }
