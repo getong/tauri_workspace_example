@@ -25,8 +25,8 @@ export const Route = createRootRoute({
         <Link to="/r3f" className="[&.active]:font-bold">
           R3F
         </Link>{" "}
-        <Link to="/baidu" className="[&.active]:font-bold">
-          Baidu
+        <Link to="/rustrequest" className="[&.active]:font-bold">
+          RustRequest
         </Link>{" "}
       </div>
       <hr />

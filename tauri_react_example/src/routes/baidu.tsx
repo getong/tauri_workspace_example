@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { invoke } from "@tauri-apps/api/core";
 
-export const Route = createFileRoute("/baidu")({
+export const Route = createFileRoute("/rustrequest")({
   component: BaiduPage,
 });
 
@@ -104,7 +104,7 @@ function BaiduPage() {
     <div className="flex flex-col h-screen overflow-hidden">
       {/* Header Section */}
       <header className="flex-none bg-white border-b shadow-sm z-10">
-        <h1 className="text-2xl font-bold p-4">Baidu Content</h1>
+        <h1 className="text-2xl font-bold p-4">view web Content from rust backend</h1>
       </header>
 
       {/* Content Section */}
