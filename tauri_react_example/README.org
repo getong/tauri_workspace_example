@@ -466,6 +466,54 @@ Start Android development with:
 bun run tauri android dev
 #+end_src
 
+*** Troubleshooting Slow Android Startup
+
+If your Android app seems to hang or takes too long to start during development, try these solutions:
+
+**** Solution 1: Reset port forwarding
+#+begin_src shell
+# Use our reset script to clear port forwarding issues
+bun run reset-android-port
+
+# Or use this combined command to reset ports and restart dev
+bun run android-dev-reset
+#+end_src
+
+**** Solution 2: Use a physical device
+Physical devices often perform better than emulators for Tauri apps
+
+**** Solution 3: Use a release build instead of debug
+#+begin_src shell
+# Build a release APK
+bun run tauri android build --release
+
+# Install the APK on your device
+adb install src-tauri/gen/android/app/build/outputs/apk/universal/release/app-universal-release.apk
+#+end_src
+
+**** Solution 4: Enable WebView debugging
+Add this to your ~/.zshrc or ~/.bashrc:
+#+begin_src shell
+# Enable Chrome remote debugging for Android WebViews
+export TAURI_ANDROID_WEBVIEW_REMOTE_DEBUGGING=1
+#+end_src
+
+Then restart your terminal and run:
+#+begin_src shell
+bun run tauri android dev
+#+end_src
+
+Open Chrome and navigate to chrome://inspect to debug your app.
+
+**** Solution 5: Check device logs
+#+begin_src shell
+# View all device logs
+adb logcat
+
+# Filter for your app logs only
+adb logcat -s TauriMainActivity
+#+end_src
+
 *** Troubleshooting
 
 1. **TLS Protocol Issues**:
@@ -493,6 +541,11 @@ export OPENSSL_DIR=$(brew --prefix openssl@3)
 export ANDROID_HOME="/Users/$USER/Library/Android/sdk"
 export NDK_HOME="$ANDROID_HOME/ndk/29.0.13113456"
 
+# macos intel cpu
+# export JAVA_HOME=/usr/local/opt/openjdk@23/libexec/openjdk.jdk/Contents/Home
+# macos arm cpu
+# export JAVA_HOME=/opt/homebrew/opt/openjdk@23/libexec/openjdk.jdk/Contents/Home
 export JAVA_HOME=/usr/local/opt/openjdk@23/libexec/openjdk.jdk/Contents/Home
+
 export PATH=$JAVA_HOME/bin:$PATH
 #+end_src

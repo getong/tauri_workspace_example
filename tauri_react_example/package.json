@@ -13,7 +13,9 @@
     "ios-dev": "export RUST_BACKTRACE=1 && tauri ios dev",
     "android-init": "tauri android init",
     "android-dev": "export RUST_BACKTRACE=1 && tauri android dev",
-    "android-build": "tauri android build"
+    "android-build": "tauri android build",
+    "reset-android-port": "bash ./reset-android-port.sh",
+    "android-dev-reset": "bash ./reset-android-port.sh && export RUST_BACKTRACE=1 && tauri android dev"
   },
   "dependencies": {
     "@react-three/drei": "^10.0.7",
