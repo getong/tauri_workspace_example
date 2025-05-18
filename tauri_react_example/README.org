@@ -427,3 +427,72 @@ clang++: error: linker command failed with exit code 1 (use -v to see invocation
 #+end_quote
 
 This happens because the build system needs to properly create and locate library files for both ARM64 and x86_64 architectures.
+
+** Android Development with Tauri
+:PROPERTIES:
+:CUSTOM_ID: android-development
+:END:
+
+This project supports Android development using Tauri's mobile features. Follow these steps to set up:
+
+*** Prerequisites
+- Java JDK 11+ (required by Android Gradle Plugin)
+- Android SDK with build tools
+- Android Studio (recommended)
+
+*** Setup Instructions
+
+1. Run the automated setup script:
+   #+begin_src shell
+   bun run setup-android
+   #+end_src
+
+   This script will:
+   - Check Java version compatibility (must be 11+)
+   - Configure Gradle TLS settings
+   - Initialize the Tauri Android project
+
+2. For manual setup, ensure:
+   - Your JAVA_HOME points to JDK 11+
+   - Configure Gradle to use proper TLS protocols by adding to ~/.gradle/gradle.properties:
+     #+begin_src properties
+     org.gradle.jvmargs=-Xmx2048m -Dfile.encoding=UTF-8 -Dhttps.protocols=TLSv1.2,TLSv1.3
+     #+end_src
+
+*** Running the Android App
+
+Start Android development with:
+#+begin_src shell
+bun run tauri android dev
+#+end_src
+
+*** Troubleshooting
+
+1. **TLS Protocol Issues**:
+   Error: "Remote host terminated the handshake"
+   Solution: Make sure your gradle.properties includes proper TLS settings as shown above
+
+2. **Java Version Issues**:
+   Error: "Dependency requires at least JVM runtime version 11"
+   Solution: Install JDK 11+ and set it as your default JDK
+
+3. **SDK Location Issues**:
+   Error: "ANDROID_HOME is not set"
+   Solution: Set the ANDROID_HOME environment variable to your Android SDK location
+
+** tauri android and ios development
+
+see [[https://zenn.dev/8beeeaaat/articles/608b9ac5b76196][Tauri製のmacOSユニバーサルアプリケーションをGitHub ActionsでReleaseするCDを実現する]]
+
+[[https://qiita.com/aqua_ix/items/d8d0c373df074fc599fc][Tauri でモバイルアプリをビルドする]]
+
+
+#+begin_src shell
+export OPENSSL_DIR=$(brew --prefix openssl@3)
+
+export ANDROID_HOME="/Users/$USER/Library/Android/sdk"
+export NDK_HOME="$ANDROID_HOME/ndk/29.0.13113456"
+
+export JAVA_HOME=/usr/local/opt/openjdk@23/libexec/openjdk.jdk/Contents/Home
+export PATH=$JAVA_HOME/bin:$PATH
+#+end_src

@@ -11,7 +11,9 @@
     "setup-ios": "bash ./setup-ios.sh",
     "ios-init": "tauri ios init",
     "ios-dev": "export RUST_BACKTRACE=1 && tauri ios dev",
-    "ios-build": "bash ./build-ios.sh"
+    "android-init": "tauri android init",
+    "android-dev": "export RUST_BACKTRACE=1 && tauri android dev",
+    "android-build": "tauri android build"
   },
   "dependencies": {
     "@react-three/drei": "^10.0.7",

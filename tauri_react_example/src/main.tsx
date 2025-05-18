@@ -1,3 +1,6 @@
+// Note: If you encounter OpenSSL build errors, set OPENSSL_DIR environment variable
+// e.g., export OPENSSL_DIR=$(brew --prefix openssl@3) on macOS
+
 import { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
 // import App from "./App";
