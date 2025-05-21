@@ -11,26 +11,19 @@
     "frontendDist": "../dist"
   },
   "app": {
+    "security": {
+      "csp": "default-src 'self'; connect-src 'self' https://api.example.com",
+      "dangerousDisableAssetCspModification": false,
+      "freezePrototype": true
+    },
     "windows": [
       {
-        "title": "tauri_react_example",
-        "width": 800,
-        "height": 600
+        "fullscreen": false,
+        "height": 600,
+        "resizable": true,
+        "title": "Tauri React Example",
+        "width": 800
       }
-    ],
-    "security": {
-      "csp": null
-    }
-  },
-  "bundle": {
-    "active": true,
-    "targets": "all",
-    "icon": [
-      "icons/32x32.png",
-      "icons/128x128.png",
-      "icons/128x128@2x.png",
-      "icons/icon.icns",
-      "icons/icon.ico"
     ]
   }
 }
