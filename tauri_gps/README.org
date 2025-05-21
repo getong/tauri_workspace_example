@@ -1,0 +1,14 @@
+* tauri-gps
+:PROPERTIES:
+:CUSTOM_ID: tauri-gps
+:END:
+Tauri
+2.0でスマホの位置情報を取得して表示するアプリのサンプルプログラムです。
+
+詳しくはこちらのブログを読んでください。
+
+[[https://puripuri2100.hatenablog.com/entry/2024/10/03/154151][Tauri 2.0でAndroidの位置情報取得機能を使ってみた]]
+
+also see [[https://github.com/puripuri2100/tauri-gps][tauri-gps]]
+
+ライセンスはCC0です。

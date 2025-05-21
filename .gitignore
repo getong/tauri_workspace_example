@@ -21,3 +21,4 @@ Cargo.lock
 #.idea/
 README.html
 **/.DS_Store
+**/node_modules
